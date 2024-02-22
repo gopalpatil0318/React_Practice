@@ -1,0 +1,122 @@
+*{
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+body{
+  text-align: center;
+}
+
+.box{
+  border: 2px solid red;
+  padding: 20px;
+  border-radius: 5px;
+  margin: 20px auto;
+  width: 80%;
+  text-align: left;
+}
+
+.loveCount{
+  padding: 20px;
+}
+
+button{
+  border: none;
+  border-radius: 15px;
+  font-size: 15px;
+  background-color: rgb(255, 11, 11);
+  color: #fff;
+  padding: 15px;
+  cursor: pointer;
+}
+
+button:hover{
+  background-color: rgb(219, 1, 1);
+}
+
+.lovePromises{
+  border: 2px solid red;
+  padding: 20px;
+  border-radius: 5px;
+  margin: 20px auto;
+  width: 80%;
+}
+
+.lovePromises h1{
+  text-align: left;
+}
+
+.lovePromises ul{
+  list-style-type: none;
+}
+
+.lovePromises ul li{
+  background-color: rgb(255, 0, 0, 0.2);
+  border-radius: 15px;
+  padding: 20px;
+  width: 200px;
+  margin: auto;
+  margin-top: 5px;
+  text-align: left;
+  
+}
+
+.lovePromises input{
+  border: 2px solid rgb(255, 0, 0, 0.7);
+  border-radius: 15px;
+  padding: 17px;
+  width: 200px;
+  margin-right: 20px;
+  
+}
+
+.myLoveComponent{
+  padding-top: 30px;
+  width: 80%;
+  margin: auto;
+}
+
+.myLoveComponent input{
+  margin: 30px;
+  border: 3px solid red !important;
+  padding: 10px 25px;
+  border-radius: 10px;
+  font-size: 20px;
+  width: 330px;
+  outline: none !important;
+}
+
+.myLoveComponent .box{
+  border: 2px solid red;
+  padding: 20px;
+  border-radius: 5px;
+  display: inline-block !important;
+  width: 200px;
+  margin: 20px;
+
+}
+
+.myLoveComponent .box h2{
+  color: red;
+  
+}
+
+.proposeLine{
+  background-color: #f2f2f2;
+  padding: 15px 25px;
+  border-radius: 10px;
+  font-size: 25px;
+  margin: 10px !important;
+  
+
+}
+
+.notFound{
+  padding: 20px;
+  width: 350px;
+  margin: 20px;
+  margin-top: 50px;
+  margin: auto;
+  border: 2px solid red;
+  border-radius: 5px;
+  
+}
