@@ -11,12 +11,12 @@ const Cards = ({articles,category}) => {
   return (
     <div className='flex flex-wrap justify-center gap-4 mb-4'>
     {
-      filteredArticles.map((article) => {
-        return (
-            <Card key={article} article={article}
-             />
-        )
-      })}
+     filteredArticles.map((article, index) => {
+      return (
+        <Card key={index} article={article} index={index} />
+      );
+    })
+    }
   </div>
   )
 }
