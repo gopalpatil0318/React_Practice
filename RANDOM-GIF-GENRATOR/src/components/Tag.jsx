@@ -1,44 +1,18 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import Spinner from './Spinner';
+import useGif from '../hooks/useGif';
 
 
-const API_KEY = import.meta.env.VITE_GIPHY_API_KEY;
+
 
 
 const Tag = () => {
 
   const [tag,setTag] = useState('');
 
-  const [gif,setGif] = useState('');
-  const [loading,setLoading] = useState(false);
- 
-  async function fetchData()
-  {
-    setLoading(true);
-    const url = `https://api.giphy.com/v1/gifs/random?api_key=${API_KEY}&tag=${tag}`;
-    const {data} = await axios.get(url);
-    
-    const imageSource = data.data.images.downsized_large.url;
-    console.log(imageSource);
-    setLoading(false)
-    setGif(imageSource);
-  }
+  const {gif,loading,fetchData} = useGif(tag);
 
-  useEffect(()=>{
-    fetchData();
-  },[])
-
-
-  function clickHandler()
-  {
-    fetchData();
-  }
-
-  function changeHandler(event)
-  {
-    setTag(event.target.value);
-  }
 
 
   return (
@@ -54,10 +28,10 @@ const Tag = () => {
       <input className='w-10/12 text-lg py-2 rounded-lg mb-[3px] text-center' 
       type="text" name="" id="" 
       value={tag}
-      onChange={changeHandler}
+      onChange={(event)=> setTag(event.target.value)}
       />
 
-      <button onClick={clickHandler}
+      <button onClick={() => fetchData()}
       className=' w-10/12 bg-yellow-500 text-lg py-2 rounded-lg mb-[20px]'>
         
         Generate
