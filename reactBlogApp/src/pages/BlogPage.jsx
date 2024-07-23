@@ -1,33 +1,30 @@
-import React, { useEffect, useState } from 'react'
-import { useLocation, useNavigation } from 'react-router-dom'
-import { baseUrl } from '../baseUrl';
-import Header from "../components/Header"
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import BlogDetails from '../components/BlogDetails';
+import Header from '../components/Header';
 
 const BlogPage = () => {
-
-
+  const newBaseUrl = 'https://codehelp-apis.vercel.app/api/';
   const [blog, setBlog] = useState(null);
-  const [realtedBlogs, setRealtedBlogs] = useState([]);
+  const [relatedBlogs, setRelatedBlogs] = useState([]);
   const location = useLocation();
-  const navigation = useNavigation();
-  const [laoding, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
-
-  const blogId = location.pathname.split("/").at(-1);
+  const blogId = location.pathname.split('/').at(-1);
 
   async function fetchRelatedBlogs() {
     setLoading(true);
-    let url = `${baseUrl}?blogId=${blogId}`;
+    const url = `${newBaseUrl}get-blog?blogId=${blogId}`;
     try {
       const res = await fetch(url);
       const data = await res.json();
       setBlog(data.blog);
-      setRealtedBlogs(data.realtedBlogs);
-
+      setRelatedBlogs(data.relatedBlogs || []);
     } catch (error) {
-      console.log("Error aagaya in blog id wali call");
+      console.error('Error fetching blog data:', error);
       setBlog(null);
-      setRealtedBlogs([]);
+      setRelatedBlogs([]);
     }
     setLoading(false);
   }
@@ -38,40 +35,39 @@ const BlogPage = () => {
     }
   }, [location.pathname]);
 
-
   return (
     <div>
       <Header />
       <div>
-        <button
-          onClick={() => navigation(-1)}
-        >
-          Back
-        </button>
+        <button onClick={() => navigate(-1)}>Back</button>
         <div>
-          {
-            laoding ? (<div>
-              <p> Laoding </p>
-            </div>) :
-              blog ? (<div>
-                <BlogDetails post={blog} />
-                <h2>Realted Blogs</h2>
-                {
-                  realtedBlogs.map((post) => {
-                    <div key={post.id}>
-                      <BlogDetails post={post} />
-                    </div>
-                  })
-                }
-              </div>) :
-                (<div>
-                  <p>No Blog Found</p>
-                </div>)
-          }
+          {loading ? (
+            <div>
+              <p>Loading...</p>
+            </div>
+          ) : blog ? (
+            <div>
+              <BlogDetails post={blog} />
+              <h2>Related Blogs</h2>
+              {relatedBlogs.length > 0 ? (
+                relatedBlogs.map((post) => (
+                  <div key={post.id}>
+                    <BlogDetails post={post} />
+                  </div>
+                ))
+              ) : (
+                <p>No related blogs found.</p>
+              )}
+            </div>
+          ) : (
+            <div>
+              <p>No Blog Found</p>
+            </div>
+          )}
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default BlogPage
+export default BlogPage;

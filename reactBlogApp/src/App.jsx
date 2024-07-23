@@ -3,6 +3,10 @@ import Header from './components/Header'
 import Blogs from './components/Blogs'
 import Pegination from './components/Pegination'
 import { AppContext } from './context/AppContext'
+import Home from './pages/Home'
+import BlogPage from './pages/BlogPage'
+import TagPage from './pages/TagPage'
+import CategoryPage from './pages/CategoryPage'
 import { Route, Routes, useLocation, useSearchParams } from 'react-router-dom'
 
 
@@ -31,6 +35,7 @@ function App() {
   }, [location.pathname,location.search]);
 
   return (
+    
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/blog/:blogId" element={<BlogPage />} />
