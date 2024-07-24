@@ -1,10 +1,8 @@
 import { useContext, useEffect, useState } from 'react'
-import Header from './components/Header'
-import Blogs from './components/Blogs'
-import Pegination from './components/Pegination'
 import { AppContext } from './context/AppContext'
 import Home from './pages/Home'
 import BlogPage from './pages/BlogPage'
+import SplashScreen from './components/SplashScreen';
 import TagPage from './pages/TagPage'
 import CategoryPage from './pages/CategoryPage'
 import { Route, Routes, useLocation, useSearchParams } from 'react-router-dom'
@@ -13,7 +11,7 @@ import { Route, Routes, useLocation, useSearchParams } from 'react-router-dom'
 function App() {
 
   const { fetchBlogPosts } = useContext(AppContext);
-
+  const [sloading, setSloading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
 
@@ -32,17 +30,31 @@ function App() {
     }
 
 
-  }, [location.pathname,location.search]);
+  }, [location.pathname, location.search]);
 
+  useEffect(() => {
+    // Simulate loading process
+    const timer = setTimeout(() => {
+      setSloading(false);
+    }, 3000); // Adjust time as needed
+
+    return () => clearTimeout(timer);
+  }, []);
   return (
-    
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/blog/:blogId" element={<BlogPage />} />
-      <Route path="/tags/:tag" element={<TagPage />} />
-      <Route path="/categories/:category" element={<CategoryPage />} />
+    <>
+      {
+        sloading ? (<SplashScreen />) :
+          (
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/blog/:blogId" element={<BlogPage />} />
+              <Route path="/tags/:tag" element={<TagPage />} />
+              <Route path="/categories/:category" element={<CategoryPage />} />
 
-    </Routes>
+            </Routes>
+          )
+      }
+    </>
   )
 }
 
