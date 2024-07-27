@@ -3,7 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs"
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
-import { error } from "console";
+
 
 export const authOptions: NextAuthOptions = {
     providers: [
@@ -16,6 +16,7 @@ export const authOptions: NextAuthOptions = {
             },
 
             async authorize(credentials: any): Promise<any> {
+                await dbConnect();
                 try {
                     const user = await UserModel.findOne({
                         $or: [
